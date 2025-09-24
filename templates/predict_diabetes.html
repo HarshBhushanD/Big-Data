@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Diabetes Risk Assessment</h3>
+<form method="post">
+  <div class="row">
+    {% for f in features %}
+      <div class="col-md-6 mb-3">
+        <label class="form-label">{{ f }}</label>
+        <input class="form-control" type="number" step="any" name="{{ f }}" value="{{ defaults[f] }}" required>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="btn btn-primary">Predict</button>
+ </form>
+{% endblock %}
+
+

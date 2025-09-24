@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+  <h1 class="display-5 mb-3">Disease & Diabetes Detection</h1>
+  <p class="lead">Sign in to assess diabetes risk and predict diseases from symptoms.</p>
+  <a class="btn btn-primary btn-lg me-2" href="{{ url_for('login') }}">Login</a>
+  <a class="btn btn-outline-secondary btn-lg" href="{{ url_for('signup') }}">Sign up</a>
+</div>
+{% endblock %}
+
+

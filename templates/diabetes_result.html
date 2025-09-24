@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Diabetes Result</h3>
+<div class="alert {{ 'alert-danger' if result.prediction==1 else 'alert-success' }}">
+  <strong>{{ 'High Risk of Diabetes' if result.prediction==1 else 'Low Risk of Diabetes' }}</strong>
+  <div class="mt-2">
+    Model accuracy: {{ (result.model_accuracy*100)|round(1) }}%
+  </div>
+  <div>
+    Probabilities: No = {{ (result.probabilities.no_diabetes*100)|round(1) }}%,
+    Yes = {{ (result.probabilities.diabetes*100)|round(1) }}%
+  </div>
+  <a class="btn btn-link" href="{{ url_for('predict_diabetes') }}">Back</a>
+  <a class="btn btn-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+ </div>
+{% endblock %}
+
+

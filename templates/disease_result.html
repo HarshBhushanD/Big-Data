@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Disease Prediction</h3>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Predicted: {{ result.prediction }}</h5>
+    <p>Model accuracy: {{ (result.model_accuracy*100)|round(1) }}%</p>
+    <h6>Top candidates</h6>
+    <ul>
+      {% for c in result.top_candidates %}
+        <li>{{ c.disease }} — {{ (c.probability*100)|round(1) }}%</li>
+      {% endfor %}
+    </ul>
+    <a class="btn btn-link" href="{{ url_for('predict_disease') }}">Back</a>
+    <a class="btn btn-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+  </div>
+</div>
+{% endblock %}
+
+
