@@ -9,7 +9,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('index') }}">HealthAI</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Diabetes & Disease Predictor</a>
         <div>
           {% if session.get('user_id') %}
             <span class="navbar-text me-3">Hi, {{ session.get('name') }}</span>

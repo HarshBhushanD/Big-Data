@@ -3,12 +3,53 @@
 <h3>Diabetes Risk Assessment</h3>
 <form method="post">
   <div class="row">
-    {% for f in features %}
-      <div class="col-md-6 mb-3">
-        <label class="form-label">{{ f }}</label>
-        <input class="form-control" type="number" step="any" name="{{ f }}" value="{{ defaults[f] }}" required>
-      </div>
-    {% endfor %}
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Pregnancies</label>
+      <input type="range" class="form-range" name="Pregnancies" min="0" max="20" step="1" value="{{ defaults['Pregnancies'] }}" oninput="pregnancies_value.textContent=this.value">
+      <small>Selected: <span id="pregnancies_value">{{ defaults['Pregnancies'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Glucose (mg/dL)</label>
+      <input type="range" class="form-range" name="Glucose" min="0" max="250" step="1" value="{{ defaults['Glucose'] }}" oninput="glucose_value.textContent=this.value">
+      <small>Selected: <span id="glucose_value">{{ defaults['Glucose'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">BloodPressure (mmHg)</label>
+      <input type="range" class="form-range" name="BloodPressure" min="0" max="200" step="1" value="{{ defaults['BloodPressure'] }}" oninput="bp_value.textContent=this.value">
+      <small>Selected: <span id="bp_value">{{ defaults['BloodPressure'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">SkinThickness (mm)</label>
+      <input type="range" class="form-range" name="SkinThickness" min="0" max="100" step="1" value="{{ defaults['SkinThickness'] }}" oninput="skin_value.textContent=this.value">
+      <small>Selected: <span id="skin_value">{{ defaults['SkinThickness'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Insulin (mu U/ml)</label>
+      <input type="range" class="form-range" name="Insulin" min="0" max="900" step="1" value="{{ defaults['Insulin'] }}" oninput="insulin_value.textContent=this.value">
+      <small>Selected: <span id="insulin_value">{{ defaults['Insulin'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">BMI</label>
+      <input type="range" class="form-range" name="BMI" min="10" max="70" step="0.1" value="{{ defaults['BMI'] }}" oninput="bmi_value.textContent=this.value">
+      <small>Selected: <span id="bmi_value">{{ defaults['BMI'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Diabetes Pedigree Function</label>
+      <input type="range" class="form-range" name="DiabetesPedigreeFunction" min="0" max="2.5" step="0.01" value="{{ defaults['DiabetesPedigreeFunction'] }}" oninput="dpf_value.textContent=this.value">
+      <small>Selected: <span id="dpf_value">{{ defaults['DiabetesPedigreeFunction'] }}</span></small>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Age (years)</label>
+      <input type="range" class="form-range" name="Age" min="0" max="100" step="1" value="{{ defaults['Age'] }}" oninput="age_value.textContent=this.value">
+      <small>Selected: <span id="age_value">{{ defaults['Age'] }}</span></small>
+    </div>
   </div>
   <button class="btn btn-primary">Predict</button>
  </form>

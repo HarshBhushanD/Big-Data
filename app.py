@@ -45,13 +45,10 @@ def create_app() -> Flask:
     app = Flask(__name__)
     app.secret_key = os.environ.get("FLASK_SECRET", "dev-secret-change-me")
 
-    # Ensure data dir exists (user should drop CSVs here)
     DATA_DIR.mkdir(exist_ok=True)
 
-    # Init SQLite DB
     init_db()
 
-    # Load ML models (they will look for CSVs inside data/)
     diabetes_model = DiabetesModel(DATA_DIR)
     disease_model = DiseaseModel(DATA_DIR)
 
@@ -61,7 +58,7 @@ def create_app() -> Flask:
             return redirect(url_for("dashboard"))
         return render_template("index.html")
 
-    # ---------------------- Auth ----------------------
+    # auth
     @app.route("/signup", methods=["GET", "POST"])
     def signup():
         if request.method == "POST":
@@ -117,21 +114,21 @@ def create_app() -> Flask:
         session.clear()
         return redirect(url_for("index"))
 
-    # ---------------------- App ----------------------
+    # app
     @app.route("/dashboard")
     def dashboard():
         if not session.get("user_id"):
             return redirect(url_for("login"))
         return render_template("dashboard.html")
 
-    # Diabetes prediction
+    # diabetes
     @app.route("/predict/diabetes", methods=["GET", "POST"])
     def predict_diabetes():
         if not session.get("user_id"):
             return redirect(url_for("login"))
 
         if request.method == "POST":
-            # Build input dict using model's expected features
+           
             form_values: Dict[str, Any] = {}
             for feature in diabetes_model.feature_names:
                 val = request.form.get(feature, "0").strip()
@@ -152,7 +149,7 @@ def create_app() -> Flask:
             defaults=diabetes_model.default_input_example(),
         )
 
-    # Multi-disease prediction by symptoms
+    # other diseases
     @app.route("/predict/disease", methods=["GET", "POST"])
     def predict_disease():
         if not session.get("user_id"):
