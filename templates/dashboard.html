@@ -1,22 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Dashboard</h2>
-<div class="row g-4">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Diabetes Risk Assessment</h5>
-        <p class="card-text">Enter clinical values to assess diabetes risk.</p>
-        <a href="{{ url_for('predict_diabetes') }}" class="btn btn-primary">Start</a>
+<div class="text-center mb-5">
+  <h1 class="display-4 fw-bold mb-3">
+    <i class="fas fa-tachometer-alt me-3" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+    Dashboard
+  </h1>
+  <p class="lead text-muted">Choose your health assessment tool</p>
+</div>
+
+<div class="row g-4 justify-content-center">
+  <div class="col-lg-5 col-md-6">
+    <div class="feature-card h-100">
+      <div class="feature-icon">
+        <i class="fas fa-heartbeat"></i>
       </div>
+      <h4 class="fw-bold mb-3">Diabetes Risk Assessment</h4>
+      <p class="text-muted mb-4">Enter your clinical measurements to get an AI-powered diabetes risk assessment with detailed analysis.</p>
+      <a href="{{ url_for('predict_diabetes') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-play me-2"></i>Start Assessment
+      </a>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Disease Prediction from Symptoms</h5>
-        <p class="card-text">Select symptoms to predict likely disease.</p>
-        <a href="{{ url_for('predict_disease') }}" class="btn btn-outline-primary">Start</a>
+  
+  <div class="col-lg-5 col-md-6">
+    <div class="feature-card h-100">
+      <div class="feature-icon">
+        <i class="fas fa-stethoscope"></i>
+      </div>
+      <h4 class="fw-bold mb-3">Disease Prediction</h4>
+      <p class="text-muted mb-4">Select your symptoms to get instant disease predictions with confidence scores and recommendations.</p>
+      <a href="{{ url_for('predict_disease') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-search me-2"></i>Predict Disease
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="card border-0 bg-light">
+      <div class="card-body text-center py-5">
+        <i class="fas fa-shield-alt feature-icon mb-3"></i>
+        <h5 class="fw-bold">AI-Powered Health Insights</h5>
+        <p class="text-muted mb-0">Our advanced machine learning models provide accurate predictions based on comprehensive medical datasets.</p>
       </div>
     </div>
   </div>

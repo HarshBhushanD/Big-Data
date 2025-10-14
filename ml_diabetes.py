@@ -483,7 +483,8 @@ class DiabetesModel:
     def default_input_example(self):
         """Provide default input example for Flask app"""
         return {
-            'Pregnancies': 2,
+            'Gender': 'Male',
+            'Pregnancies': 0,
             'Glucose': 120,
             'BloodPressure': 80,
             'SkinThickness': 25,

@@ -1,58 +1,99 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Diabetes Risk Assessment</h3>
-<form method="post">
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Pregnancies</label>
-      <input type="range" class="form-range" name="Pregnancies" min="0" max="20" step="1" value="{{ defaults['Pregnancies'] }}" oninput="pregnancies_value.textContent=this.value">
-      <small>Selected: <span id="pregnancies_value">{{ defaults['Pregnancies'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Glucose (mg/dL)</label>
-      <input type="range" class="form-range" name="Glucose" min="0" max="250" step="1" value="{{ defaults['Glucose'] }}" oninput="glucose_value.textContent=this.value">
-      <small>Selected: <span id="glucose_value">{{ defaults['Glucose'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">BloodPressure (mmHg)</label>
-      <input type="range" class="form-range" name="BloodPressure" min="0" max="200" step="1" value="{{ defaults['BloodPressure'] }}" oninput="bp_value.textContent=this.value">
-      <small>Selected: <span id="bp_value">{{ defaults['BloodPressure'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">SkinThickness (mm)</label>
-      <input type="range" class="form-range" name="SkinThickness" min="0" max="100" step="1" value="{{ defaults['SkinThickness'] }}" oninput="skin_value.textContent=this.value">
-      <small>Selected: <span id="skin_value">{{ defaults['SkinThickness'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Insulin (mu U/ml)</label>
-      <input type="range" class="form-range" name="Insulin" min="0" max="900" step="1" value="{{ defaults['Insulin'] }}" oninput="insulin_value.textContent=this.value">
-      <small>Selected: <span id="insulin_value">{{ defaults['Insulin'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">BMI</label>
-      <input type="range" class="form-range" name="BMI" min="10" max="70" step="0.1" value="{{ defaults['BMI'] }}" oninput="bmi_value.textContent=this.value">
-      <small>Selected: <span id="bmi_value">{{ defaults['BMI'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Diabetes Pedigree Function</label>
-      <input type="range" class="form-range" name="DiabetesPedigreeFunction" min="0" max="2.5" step="0.01" value="{{ defaults['DiabetesPedigreeFunction'] }}" oninput="dpf_value.textContent=this.value">
-      <small>Selected: <span id="dpf_value">{{ defaults['DiabetesPedigreeFunction'] }}</span></small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Age (years)</label>
-      <input type="range" class="form-range" name="Age" min="0" max="100" step="1" value="{{ defaults['Age'] }}" oninput="age_value.textContent=this.value">
-      <small>Selected: <span id="age_value">{{ defaults['Age'] }}</span></small>
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3 class="mb-0">
+          <i class="fas fa-heartbeat me-2"></i>Diabetes Risk Assessment
+        </h3>
+        <p class="mb-0 mt-2 opacity-75">Enter your clinical measurements for AI analysis</p>
+      </div>
+      <div class="card-body p-4">
+        <form method="post" id="diabetesForm">
+          <div class="row">
+            <!-- Gender Field -->
+            {% if 'Gender' in defaults %}
+            <div class="col-md-6 mb-4">
+              <label class="form-label">
+                <i class="fas fa-venus-mars me-2"></i>Gender
+              </label>
+              <select class="form-control" name="Gender" required>
+                <option value="Male" {% if defaults.Gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if defaults.Gender == 'Female' %}selected{% endif %}>Female</option>
+              </select>
+            </div>
+            {% endif %}
+            
+            {% for f in features %}
+              <div class="col-md-6 mb-4">
+                <label class="form-label">
+                  <i class="fas fa-{% if 'Glucose' in f %}tint{% elif 'Blood' in f %}heartbeat{% elif 'BMI' in f %}weight{% elif 'Age' in f %}birthday-cake{% elif 'Pregnancies' in f %}baby{% else %}chart-line{% endif %} me-2"></i>
+                  {{ f }}
+                </label>
+                {% if f == 'Pregnancies' and defaults.Gender == 'Male' %}
+                  <input class="form-control" 
+                         type="number" 
+                         step="1" 
+                         name="{{ f }}" 
+                         value="0" 
+                         readonly
+                         style="background-color: #f8f9fa;">
+                  <div class="form-text">Not applicable for males</div>
+                {% else %}
+                  <input class="form-control" 
+                         type="number" 
+                         step="{% if f in ['BloodPressure', 'Insulin', 'Glucose'] %}10{% else %}any{% endif %}" 
+                         name="{{ f }}" 
+                         value="{{ defaults[f] }}" 
+                         required
+                         {% if f in ['BloodPressure', 'Insulin', 'Glucose'] %}oninput="validateDivisibleBy10(this)"{% endif %}>
+                  {% if f in ['BloodPressure', 'Insulin', 'Glucose'] %}
+                    <div class="form-text">Must be divisible by 10</div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg px-5">
+              <i class="fas fa-chart-line me-2"></i>Analyze Risk
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-  <button class="btn btn-primary">Predict</button>
- </form>
+</div>
+
+<script>
+function validateDivisibleBy10(input) {
+  const value = parseFloat(input.value);
+  if (value % 10 !== 0) {
+    input.setCustomValidity('Value must be divisible by 10');
+    input.classList.add('is-invalid');
+  } else {
+    input.setCustomValidity('');
+    input.classList.remove('is-invalid');
+  }
+}
+
+// Add validation on form submit
+document.getElementById('diabetesForm').addEventListener('submit', function(e) {
+  const inputs = document.querySelectorAll('input[oninput="validateDivisibleBy10(this)"]');
+  let valid = true;
+  
+  inputs.forEach(input => {
+    validateDivisibleBy10(input);
+    if (input.classList.contains('is-invalid')) {
+      valid = false;
+    }
+  });
+  
+  if (!valid) {
+    e.preventDefault();
+    alert('Please ensure Blood Pressure, Insulin, and Glucose values are divisible by 10');
+  }
+});
+</script>
 {% endblock %}
-
-
