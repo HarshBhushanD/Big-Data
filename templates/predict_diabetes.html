@@ -78,6 +78,26 @@ function validateDivisibleBy10(input) {
   }
 }
 
+// Handle gender change
+document.querySelector('select[name="Gender"]').addEventListener('change', function() {
+  const gender = this.value;
+  const pregnanciesInput = document.querySelector('input[name="Pregnancies"]');
+  
+  if (gender === 'Male') {
+    pregnanciesInput.value = '0';
+    pregnanciesInput.readOnly = true;
+    pregnanciesInput.style.backgroundColor = '#f8f9fa';
+    pregnanciesInput.nextElementSibling.textContent = 'Not applicable for males';
+  } else {
+    pregnanciesInput.readOnly = false;
+    pregnanciesInput.style.backgroundColor = '';
+    pregnanciesInput.nextElementSibling.textContent = '';
+    if (pregnanciesInput.value === '0') {
+      pregnanciesInput.value = '1';
+    }
+  }
+});
+
 // Add validation on form submit
 document.getElementById('diabetesForm').addEventListener('submit', function(e) {
   const inputs = document.querySelectorAll('input[oninput="validateDivisibleBy10(this)"]');

@@ -11,17 +11,195 @@
       </div>
       <div class="card-body p-4">
         <form method="post" id="diseaseForm">
-          <div class="row">
-            {% for s in symptoms %}
-              <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
-                <div class="form-check p-2 border rounded">
-                  <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
-                  <label class="form-check-label" for="s_{{ loop.index }}">
-                    <small>{{ s.replace('_', ' ').title() }}</small>
-                  </label>
+          <div class="accordion" id="symptomCategories">
+            <!-- Skin Related Symptoms -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="skinHeading">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#skinCollapse" aria-expanded="true" aria-controls="skinCollapse">
+                  <i class="fas fa-hand-paper me-2 text-warning"></i>Skin & External Symptoms
+                </button>
+              </h2>
+              <div id="skinCollapse" class="accordion-collapse collapse show" aria-labelledby="skinHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'skin' in s or 'rash' in s or 'itching' in s or 'nodal_skin' in s or 'yellowish_skin' in s or 'yellowing_of_eyes' in s or 'blister' in s or 'red_sore' in s or 'yellow_crust' in s or 'pus_filled' in s or 'blackheads' in s or 'scurring' in s or 'skin_peeling' in s or 'silver_like' in s or 'small_dents' in s or 'inflammatory_nails' in s or 'bruising' in s or 'red_spots' in s or 'dischromic' in s or 'prominent_veins' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
-            {% endfor %}
+            </div>
+
+            <!-- Respiratory Symptoms -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="respiratoryHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#respiratoryCollapse" aria-expanded="false" aria-controls="respiratoryCollapse">
+                  <i class="fas fa-lungs me-2 text-info"></i>Respiratory & Breathing
+                </button>
+              </h2>
+              <div id="respiratoryCollapse" class="accordion-collapse collapse" aria-labelledby="respiratoryHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'sneezing' in s or 'cough' in s or 'breathlessness' in s or 'phlegm' in s or 'throat_irritation' in s or 'sinus_pressure' in s or 'runny_nose' in s or 'congestion' in s or 'chest_pain' in s or 'mucoid_sputum' in s or 'rusty_sputum' in s or 'blood_in_sputum' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Digestive Symptoms -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="digestiveHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#digestiveCollapse" aria-expanded="false" aria-controls="digestiveCollapse">
+                  <i class="fas fa-stomach me-2 text-success"></i>Digestive & Gastrointestinal
+                </button>
+              </h2>
+              <div id="digestiveCollapse" class="accordion-collapse collapse" aria-labelledby="digestiveHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'stomach' in s or 'acidity' in s or 'ulcers_on_tongue' in s or 'vomiting' in s or 'indigestion' in s or 'nausea' in s or 'loss_of_appetite' in s or 'constipation' in s or 'abdominal_pain' in s or 'diarrhoea' in s or 'pain_during_bowel' in s or 'pain_in_anal' in s or 'bloody_stool' in s or 'irritation_in_anus' in s or 'belly_pain' in s or 'passage_of_gases' in s or 'stomach_bleeding' in s or 'distention_of_abdomen' in s or 'swelling_of_stomach' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Neurological & Mental Symptoms -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="neuroHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#neuroCollapse" aria-expanded="false" aria-controls="neuroCollapse">
+                  <i class="fas fa-brain me-2 text-purple"></i>Neurological & Mental Health
+                </button>
+              </h2>
+              <div id="neuroCollapse" class="accordion-collapse collapse" aria-labelledby="neuroHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'anxiety' in s or 'mood_swings' in s or 'restlessness' in s or 'lethargy' in s or 'depression' in s or 'irritability' in s or 'altered_sensorium' in s or 'lack_of_concentration' in s or 'coma' in s or 'dizziness' in s or 'slurred_speech' in s or 'spinning_movements' in s or 'loss_of_balance' in s or 'unsteadiness' in s or 'weakness_of_one_body_side' in s or 'loss_of_smell' in s or 'toxic_look' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Musculoskeletal Symptoms -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="musculoHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#musculoCollapse" aria-expanded="false" aria-controls="musculoCollapse">
+                  <i class="fas fa-running me-2 text-primary"></i>Musculoskeletal & Movement
+                </button>
+              </h2>
+              <div id="musculoCollapse" class="accordion-collapse collapse" aria-labelledby="musculoHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'joint_pain' in s or 'muscle_wasting' in s or 'back_pain' in s or 'neck_pain' in s or 'cramps' in s or 'knee_pain' in s or 'hip_joint_pain' in s or 'muscle_weakness' in s or 'stiff_neck' in s or 'swelling_joints' in s or 'movement_stiffness' in s or 'muscle_pain' in s or 'painful_walking' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cardiovascular & Circulatory -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="cardioHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cardioCollapse" aria-expanded="false" aria-controls="cardioCollapse">
+                  <i class="fas fa-heartbeat me-2 text-danger"></i>Cardiovascular & Circulatory
+                </button>
+              </h2>
+              <div id="cardioCollapse" class="accordion-collapse collapse" aria-labelledby="cardioHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'fast_heart_rate' in s or 'palpitations' in s or 'swollen_legs' in s or 'swollen_blood_vessels' in s or 'puffy_face_and_eyes' in s or 'swollen_extremeties' in s or 'enlarged_thyroid' in s or 'brittle_nails' in s or 'fluid_overload' in s or 'swelled_lymph_nodes' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- General & Systemic Symptoms -->
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="generalHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#generalCollapse" aria-expanded="false" aria-controls="generalCollapse">
+                  <i class="fas fa-user-md me-2 text-secondary"></i>General & Systemic Symptoms
+                </button>
+              </h2>
+              <div id="generalCollapse" class="accordion-collapse collapse" aria-labelledby="generalHeading" data-bs-parent="#symptomCategories">
+                <div class="accordion-body">
+                  <div class="row">
+                    {% for s in symptoms %}
+                      {% if 'shivering' in s or 'chills' in s or 'fatigue' in s or 'weight_gain' in s or 'weight_loss' in s or 'high_fever' in s or 'mild_fever' in s or 'sweating' in s or 'dehydration' in s or 'headache' in s or 'pain_behind_the_eyes' in s or 'malaise' in s or 'blurred_and_distorted_vision' in s or 'watering_from_eyes' in s or 'visual_disturbances' in s or 'excessive_hunger' in s or 'increased_appetite' in s or 'polyuria' in s or 'family_history' in s or 'receiving_blood_transfusion' in s or 'receiving_unsterile_injections' in s or 'history_of_alcohol_consumption' in s or 'extra_marital_contacts' in s or 'drying_and_tingling_lips' in s or 'weakness_in_limbs' in s or 'cold_hands_and_feets' in s or 'patches_in_throat' in s or 'irregular_sugar_level' in s or 'sunken_eyes' in s or 'dark_urine' in s or 'yellow_urine' in s or 'acute_liver_failure' in s or 'burning_micturition' in s or 'spotting_ urination' in s or 'bladder_discomfort' in s or 'foul_smell_of urine' in s or 'continuous_feel_of_urine' in s or 'internal_itching' in s or 'redness_of_eyes' in s or 'abnormal_menstruation' in s or 'obesity' in s %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                          <div class="form-check p-2 border rounded">
+                            <input class="form-check-input" type="checkbox" name="symptoms" value="{{ s }}" id="s_{{ loop.index }}">
+                            <label class="form-check-label" for="s_{{ loop.index }}">
+                              <small>{{ s.replace('_', ' ').title() }}</small>
+                            </label>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary btn-lg px-5">

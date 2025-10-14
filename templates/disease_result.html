@@ -28,9 +28,7 @@
                   <div class="row align-items-center">
                     <div class="col-md-8">
                       <h6 class="mb-1 fw-bold">{{ c.disease }}</h6>
-                      <div class="progress" style="height: 8px;">
-                        <div class="progress-bar bg-primary" style="width: {{ c.probability*100 }}%"></div>
-                      </div>
+                      
                     </div>
                     <div class="col-md-4 text-end">
                       <span class="badge bg-primary fs-6">{{ (c.probability*100)|round(1) }}%</span>
